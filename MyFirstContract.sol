@@ -1,8 +1,8 @@
 pragma solidity ^0.4.0;
 
 
-contract Regulator {
-    function checkValue(uint amount) internal returns (bool);
+interface Regulator {
+    function checkValue(uint amount) public returns (bool);
     function eligibleForLoan() public returns (bool);
 }
 
@@ -28,7 +28,7 @@ contract Bank is Regulator {
         return value;
     }
 
-    function checkValue(uint amount) internal returns (bool) {
+    function checkValue(uint amount) public returns (bool) {
         return value >= amount;
     }
 
@@ -38,7 +38,7 @@ contract Bank is Regulator {
 }
 
 
-contract MyFirstContract is Bank {
+contract MyFirstContract is Bank(10) {
     string private name;
     uint private age;
 
