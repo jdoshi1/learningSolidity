@@ -2,7 +2,7 @@ pragma solidity ^0.4.0;
 
 
 contract Regulator {
-    function checkValue(uint amount) public returns (bool);
+    function checkValue(uint amount) internal returns (bool);
     function eligibleForLoan() public returns (bool);
 }
 
@@ -19,14 +19,16 @@ contract Bank is Regulator {
     }
 
     function withdraw(uint amount) public {
-        value -= amount;
+        if (checkValue(amount)) {
+            value -= amount;
+        }
     }
 
     function balance() public view returns (uint) {
         return value;
     }
 
-    function checkValue(uint amount) public returns (bool) {
+    function checkValue(uint amount) internal returns (bool) {
         return value >= amount;
     }
 
